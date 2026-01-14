@@ -1,0 +1,8 @@
+//
+// Created by Win-0201 on 2026/1/14.
+//
+
+#ifndef STM32_TEMPLATES_01_I2C_H
+#define STM32_TEMPLATES_01_I2C_H
+
+#endif //STM32_TEMPLATES_01_I2C_H
