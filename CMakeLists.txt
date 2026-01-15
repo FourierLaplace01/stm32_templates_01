@@ -1,100 +1,81 @@
-# ============================================================
+# ==================================================================
 # stm32_templates_01- STM32Nucleo_F103RB Standard Peripheral Library
-# ============================================================
+# ==================================================================
 
 cmake_minimum_required(VERSION 3.22)
 project(stm32_templates_01 LANGUAGES C ASM)
-set(PROJECT_TARGET stm32_templates_01)
 
-# ==================== 构建类型 ====================
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
-endif ()
+set(APP "Test01")
+
+message(STATUS "Building Application: ${APP}")
+set(PROJECT_TARGET "${APP}")
+
+#
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
 
 message(STATUS "项目: ${PROJECT_TARGET}")
-message(STATUS "芯片: STM32Nucleo_F103RB (Cortex-M3)")
 message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")
-# ==================== MCU 架构 ====================
-
-
-
-
 
 add_executable(
         ${PROJECT_TARGET}
 )
 
+set_target_properties(${PROJECT_TARGET} PROPERTIES
+        OUTPUT_NAME $<IF:$<CONFIG:Debug>,${PROJECT_TARGET}_Debug,${PROJECT_TARGET}_Release>
+        SUFFIX ".elf"
+)
 
-# Other_File
+
+# ==================================================================
+
+# Core_Sources
 Set(
-        Other_File
+        Core_Sources
         Core/sysmem.c
         Core/syscall.c
-)
 
-# Config_File
-set(
-        Config_File
-)
-
-# Interrupt_File
-set(
-        Interrupt_File
-        Core/stm32f10x_it.c
-)
-
-# Startup_File
-set(
-        Startup_File
         Core/startup_stm32f103rbtx.s
-)
-
-# Linker_File
-set(
-        Linker_File
         Core/stm32f103rbtx_FLASH.ld
 )
 
 # Application_Sources
 set(
         Application_Sources
-        Application/Src/main.c
+        Application/${APP}/stm32f10x_it.c
+        Application/${APP}/main.c
 )
 
 # Peripherals_Sources
 set(
         Peripherals_Sources
-        Peripherals/GPIO/gpio.c
-        Peripherals/I2C/i2c.c
-        Peripherals/SPI/spi.c
+        Peripherals/GPIO/Periph_GPIO.c
+        Peripherals/I2C/Periph_I2C.c
+        Peripherals/SPI/Periph_SPI.c
 )
 
-# Modules
+# Modules_Sources
 set(
         Modules_Sources
-        Modules/MPU6050/MPU6050.c
-        Modules/nRF24L01/nRF24L01.c
-        Modules/OLED091/OLED091.c
-        Modules/W25Q128/W25Q128.c
+        Modules/MPU6050/Module_MPU6050.c
+        Modules/nRF24L01/Module_nRF24L01.c
+        Modules/OLED091/Module_OLED091.c
+        Modules/W25Q128/Module_W25Q128.c
 )
 
-# Utils
+# Utils_Sources
 set(
         Utils_Sources
-        Utils/Delay/utli_delay.c
-        Utils/String/util_string.c
-        Utils/Math/util_math.c
+        Utils/Delay/Util_Delay.c
+        Utils/String/Util_String.c
+        Utils/Math/Util_Math.c
 )
 
-# CMSIS
+# Libraries_Sources
 set(
-        CMSIS_Sources
+        Libraries_Sources
         Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c
-)
-
-# StdPeriph
-set(
-        StdPeriph_Sources
         Libraries/STM32F10x_StdPeriph_Driver/src/misc.c
         Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_adc.c
         Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c
@@ -120,127 +101,162 @@ set(
         Libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c
 )
 
-# Include_Directories
+
+
+# Core_Include
 set(
-        Include_Directories
-        # CMSIS
-        Libraries/CMSIS/CM3/CoreSupport
-        Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x
-
-        # StdPeriph
-        Libraries/STM32F10x_StdPeriph_Driver/inc
-
-        # Core
+        Core_Include
         Core
+)
 
-        # Application
-        Application/Inc
+# Application_Include
+set(
+        Application_Include
+        Application/${APP}
+)
 
-        # Peripherals
+# Peripherals_Include
+set(
+        Peripherals_Include
         Peripherals/GPIO
         Peripherals/I2C
         Peripherals/SPI
+)
 
-        # Modules
+# Modules_Include
+set(
+        Modules_Include
         Modules/MPU6050
         Modules/nRF24L01
         Modules/OLED091
         Modules/W25Q128
+)
 
-        # Utils
+# Utils_Include
+set(
+        Utils_Include
         Utils/Delay
         Utils/Math
         Utils/String
 )
 
 
-
-
-# =================================================================
-set_target_properties(
-        ${PROJECT_TARGET} PROPERTIES
-        SUFFIX ".elf"
+#Libraries_Include
+set(
+        Libraries_Include
+        Libraries/CMSIS/CM3/CoreSupport
+        Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x
+        Libraries/STM32F10x_StdPeriph_Driver/inc
 )
 
+# ==================================================================
 
+#
 target_sources(
 
         ${PROJECT_TARGET} PRIVATE
-        ${Other_File}
-        ${Config_File}
-        ${Interrupt_File}
-        ${Startup_File}
-        ${Linker_File}
         #
+        ${Core_Sources}
         ${Application_Sources}
         ${Modules_Sources}
         ${Utils_Sources}
         #
-        ${CMSIS_Sources}
-        ${StdPeriph_Sources}
-
+        ${Libraries_Sources}
 
 )
 
+
+#
 target_include_directories(
 
         ${PROJECT_TARGET} PRIVATE
-        ${Include_Directories}
+        #
+        ${Core_Include}
+        ${Application_Include}
+        ${Modules_Include}
+        ${Utils_Include}
+        #
+        ${Libraries_Include}
+
 )
 
 
-
-
-
-
-
+#
 target_link_options(
+
         ${PROJECT_TARGET} PRIVATE
         #
         -mcpu=cortex-m3
         -mthumb
         -mfloat-abi=soft
         #
-        -T${CMAKE_CURRENT_SOURCE_DIR}/${Linker_File}
         -specs=nosys.specs
         -specs=nano.specs
+        #
         -Wl,--gc-sections
+        -Wl,--print-memory-usage
         -Wl,-Map=${PROJECT_TARGET}.map
+        -Wl,--cref
+
+        -T${CMAKE_CURRENT_SOURCE_DIR}/Core/stm32f103rbtx_FLASH.ld
+
+
 )
 
+#
 target_compile_options(
+
         ${PROJECT_TARGET} PRIVATE
+
         #
         -mcpu=cortex-m3
         -mthumb
         -mfloat-abi=soft
 
         #
-        -Wall -Wextra
-        -ffreestanding
-        -fno-builtin
+        -Wall
+        -Wextra
+
+        #
         -fdata-sections
         -ffunction-sections
+
+        #
         -std=gnu11
-        $<$<CONFIG:Debug>:-Og -g3>
-        $<$<CONFIG:Release>:-O3>
-        $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp>
+
+        #
+        -ffreestanding
+        -fno-builtin
+
+        # C
+        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:C>>:-O0 -g3>
+        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:C>>:-Os -g0>
+
+        # CPP
+        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>>:-O0 -g3>
+        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>>:-Os -g0>
+
+        $<$<COMPILE_LANGUAGE:CXX>: -fno-rtti -fno-exceptions -fno-threadsafe-statics>
+
+        # ASM
+        $<$<COMPILE_LANGUAGE:ASM>: -x assembler-with-cpp>
 )
 
+
+
 target_compile_definitions(${PROJECT_TARGET} PRIVATE
-        STM32F103xB
         STM32F10X_MD
         USE_STDPERIPH_DRIVER
         $<$<CONFIG:Debug>:DEBUG>
 )
 
 
-add_custom_command(
-        TARGET ${PROJECT_TARGET} POST_BUILD
-        COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${PROJECT_TARGET}>
-        COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${PROJECT_TARGET}> ${PROJECT_TARGET}.hex
-        COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${PROJECT_TARGET}> ${PROJECT_TARGET}.bin
-)
+# ==================================================================
 
-message(STATUS "========================================")
-message(STATUS "输出: ${PROJECT_TARGET}.elf / .hex / .bin")
+# -------------------
+# Post Build: 打印详细内存 + 生成 HEX/BIN
+# -------------------
+add_custom_command(TARGET ${PROJECT_TARGET} POST_BUILD
+
+        COMMAND ${CMAKE_SIZE} -A -x $<TARGET_FILE:${PROJECT_TARGET}>
+)

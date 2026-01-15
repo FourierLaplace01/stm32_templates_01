@@ -1,0 +1,8 @@
+//
+// Created by Win-0201 on 2026/1/16.
+//
+
+#ifndef STM32_TEMPLATES_01_UTILS_H
+#define STM32_TEMPLATES_01_UTILS_H
+
+#endif //STM32_TEMPLATES_01_UTILS_H
