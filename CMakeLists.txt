@@ -14,67 +14,76 @@ endif ()
 message(STATUS "项目: ${PROJECT_TARGET}")
 message(STATUS "芯片: STM32Nucleo_F103RB (Cortex-M3)")
 message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")
+# ==================== MCU 架构 ====================
 
-add_executable(${PROJECT_TARGET}
-        Application/Src/app.test.c
-        Application/Inc/app.test.h)
 
-# Cnfig
+
+
+
+add_executable(
+        ${PROJECT_TARGET}
+)
+
+
+# Other_File
+Set(
+        Other_File
+        Core/sysmem.c
+        Core/syscall.c
+)
+
+# Config_File
 set(
         Config_File
-
 )
-# Interrupt
+
+# Interrupt_File
 set(
-        Interrupt_Sources
-        Interrupt/stm32f10x_it.c
+        Interrupt_File
+        Core/stm32f10x_it.c
 )
 
-# Startup
+# Startup_File
 set(
         Startup_File
-        Startup/startup_stm32f103rbtx.s
+        Core/startup_stm32f103rbtx.s
 )
 
-# Linker
+# Linker_File
 set(
         Linker_File
-        ${CMAKE_CURRENT_SOURCE_DIR}/Linker/stm32f103rbtx_FLASH.ld
+        Core/stm32f103rbtx_FLASH.ld
 )
 
-# Application
-set(Application_Sources
-        Application/Src/app_main.c
+# Application_Sources
+set(
+        Application_Sources
+        Application/Src/main.c
 )
 
-# Peripherals
+# Peripherals_Sources
 set(
         Peripherals_Sources
-        Peripherals/src/gpio.c
-        Peripherals/src/i2c.c
-        Peripherals/src/spi.c
+        Peripherals/GPIO/gpio.c
+        Peripherals/I2C/i2c.c
+        Peripherals/SPI/spi.c
 )
 
 # Modules
 set(
         Modules_Sources
-        Modules/MPU6050/Src/MPU6050.c
-        Modules/nRF24L01/Src/nRF24L01.c
-        Modules/OLED091/Src/OLED091.c
-        Modules/W25Q128/Src/W25Q128.c
+        Modules/MPU6050/MPU6050.c
+        Modules/nRF24L01/nRF24L01.c
+        Modules/OLED091/OLED091.c
+        Modules/W25Q128/W25Q128.c
 )
 
 # Utils
 set(
-        #
         Utils_Sources
-        Utils/Src/sysmem.c
-        Utils/Src/syscalls.c
-        #
-        Utils/Src/utli_delay.c
-        Utils/Src/util_string.c
-        Utils/Src/util_math.c
-        Utils/Src/utli_log.c
+        Utils/Delay/utli_delay.c
+        Utils/String/util_string.c
+        Utils/Math/util_math.c
 )
 
 # CMSIS
@@ -112,7 +121,8 @@ set(
 )
 
 # Include_Directories
-set(Include_Directories
+set(
+        Include_Directories
         # CMSIS
         Libraries/CMSIS/CM3/CoreSupport
         Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x
@@ -120,31 +130,33 @@ set(Include_Directories
         # StdPeriph
         Libraries/STM32F10x_StdPeriph_Driver/inc
 
-        # Config
-        Config
-
-        # Interrupt
-        Interrupt
-
-        # Startup
-        Startup
+        # Core
+        Core
 
         # Application
         Application/Inc
 
         # Peripherals
-        Peripherals/Inc
+        Peripherals/GPIO
+        Peripherals/I2C
+        Peripherals/SPI
 
         # Modules
-        Modules/MPU6050/Inc
-        Modules/nRF24L01/Inc
-        Modules/OLED091/Inc
-        Modules/W25Q128/Inc
+        Modules/MPU6050
+        Modules/nRF24L01
+        Modules/OLED091
+        Modules/W25Q128
 
         # Utils
-        Utils/Inc
+        Utils/Delay
+        Utils/Math
+        Utils/String
 )
 
+
+
+
+# =================================================================
 set_target_properties(
         ${PROJECT_TARGET} PROPERTIES
         SUFFIX ".elf"
@@ -154,14 +166,13 @@ set_target_properties(
 target_sources(
 
         ${PROJECT_TARGET} PRIVATE
-        #
+        ${Other_File}
         ${Config_File}
-        ${Interrupt_Sources}
+        ${Interrupt_File}
         ${Startup_File}
         ${Linker_File}
         #
         ${Application_Sources}
-        ${Peripherals_Sources}
         ${Modules_Sources}
         ${Utils_Sources}
         #
@@ -179,10 +190,18 @@ target_include_directories(
 
 
 
+
+
+
+
 target_link_options(
         ${PROJECT_TARGET} PRIVATE
-        ${MCU_ARCH_OPTIONS}
-        -T${Linker_File}
+        #
+        -mcpu=cortex-m3
+        -mthumb
+        -mfloat-abi=soft
+        #
+        -T${CMAKE_CURRENT_SOURCE_DIR}/${Linker_File}
         -specs=nosys.specs
         -specs=nano.specs
         -Wl,--gc-sections
@@ -196,7 +215,7 @@ target_compile_options(
         -mthumb
         -mfloat-abi=soft
 
-        #yi
+        #
         -Wall -Wextra
         -ffreestanding
         -fno-builtin
@@ -225,4 +244,3 @@ add_custom_command(
 
 message(STATUS "========================================")
 message(STATUS "输出: ${PROJECT_TARGET}.elf / .hex / .bin")
-message(STATUS "========================================")

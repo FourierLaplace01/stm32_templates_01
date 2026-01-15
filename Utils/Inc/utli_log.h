@@ -1,8 +1,0 @@
-//
-// Created by Win-0201 on 2026/1/14.
-//
-
-#ifndef STM32_TEMPLATES_01_UTLI_LOG_H
-#define STM32_TEMPLATES_01_UTLI_LOG_H
-
-#endif //STM32_TEMPLATES_01_UTLI_LOG_H
