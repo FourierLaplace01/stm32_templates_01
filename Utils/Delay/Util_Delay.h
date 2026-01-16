@@ -1,8 +1,15 @@
-//
-// Created by Win-0201 on 2026/1/16.
-//
+#ifndef UTIL_DELAY_H
+#define UTIL_DELAY_H
 
-#ifndef STM32_TEMPLATES_01_UTILS_DELAY_H
-#define STM32_TEMPLATES_01_UTILS_DELAY_H
+#include <stdint.h>
 
-#endif //STM32_TEMPLATES_01_UTILS_DELAY_H
+// 初始化延时模块，必须在 SystemCoreClockUpdate() 后调用
+void Util_Delay_Init(void);
+
+// 毫秒延时
+void Util_Delay_Ms(uint32_t ms);
+
+// 微秒延时
+void Util_Delay_Us(uint32_t us);
+
+#endif

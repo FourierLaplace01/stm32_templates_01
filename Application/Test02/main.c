@@ -43,7 +43,7 @@ int main(void)
             (BitAction)!GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_5)
         );
 
-        Dlay_ms(100);
+        Dlay_ms(1000);
     }
 
 }

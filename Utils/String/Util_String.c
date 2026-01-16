@@ -3,3 +3,8 @@
 //
 
 #include "Util_String.h"
+
+uint32_t Util_String_GetNum(uint32_t Num)
+{
+    return Num;
+}

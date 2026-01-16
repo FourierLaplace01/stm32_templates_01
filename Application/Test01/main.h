@@ -1,8 +1,4 @@
-//
-// Created by Win-0201 on 2026/1/15.
-//
+#ifndef __MAIN_H
+#define __MAIN_H
 
-#ifndef STM32_TEMPLATES_01_MAIN_H
-#define STM32_TEMPLATES_01_MAIN_H
-
-#endif //STM32_TEMPLATES_01_MAIN_H
+#endif /* __MAIN_H */

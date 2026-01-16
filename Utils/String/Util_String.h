@@ -2,7 +2,11 @@
 // Created by Win-0201 on 2026/1/16.
 //
 
-#ifndef STM32_TEMPLATES_01_UTILS_STRING_H
-#define STM32_TEMPLATES_01_UTILS_STRING_H
+#ifndef UTIL_STRING_H
+#define UTIL_STRING_H
+#include <stdint.h>
 
-#endif //STM32_TEMPLATES_01_UTILS_STRING_H
+// 返回一个数字，模拟延时用
+uint32_t Util_String_GetNum(uint32_t Num);
+
+#endif

@@ -1,0 +1,240 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "Application/Test01",
+					"jsonFile" : "directory-Application.Test01-Debug-279ebba74cda624ea4cf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Application/Test01"
+				},
+				{
+					"build" : "Utils/Delay",
+					"jsonFile" : "directory-Utils.Delay-Debug-bdf26053d7e3a6868af7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Utils/Delay",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "Utils/Log",
+					"jsonFile" : "directory-Utils.Log-Debug-35cb1a0722aee81a4ffb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Utils/Log",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "Utils/Math",
+					"jsonFile" : "directory-Utils.Math-Debug-8011a02396b1d60b5a02.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Utils/Math",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "Utils/String",
+					"jsonFile" : "directory-Utils.String-Debug-259ee33c9c204b4d028c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Utils/String",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "Peripherals/GPIO",
+					"jsonFile" : "directory-Peripherals.GPIO-Debug-f1c7e0d00b0023a7f978.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Peripherals/GPIO"
+				},
+				{
+					"build" : "Peripherals/I2C",
+					"jsonFile" : "directory-Peripherals.I2C-Debug-de4bb71daf351d4c41f0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Peripherals/I2C"
+				},
+				{
+					"build" : "Peripherals/SPI",
+					"jsonFile" : "directory-Peripherals.SPI-Debug-b4ad27c0d916ff37103f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Peripherals/SPI"
+				},
+				{
+					"build" : "Peripherals/USART",
+					"jsonFile" : "directory-Peripherals.USART-Debug-6275b2a58bb284efe3cc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "Peripherals/USART",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"name" : "STM32_Templates_01",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 9,
+					"id" : "Periph_USART::@3163487ac16bc211d697",
+					"jsonFile" : "target-Periph_USART-Debug-a0630066cad21077b04a.json",
+					"name" : "Periph_USART",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Test01::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Test01-Debug-cf647fcc9f5b94638ba1.json",
+					"name" : "Test01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Util_Delay::@126fcb2126025a6270cc",
+					"jsonFile" : "target-Util_Delay-Debug-49baef346be34a07db44.json",
+					"name" : "Util_Delay",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "Util_Log::@6a38703a6a3158fda928",
+					"jsonFile" : "target-Util_Log-Debug-4f53015377508f44f77e.json",
+					"name" : "Util_Log",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "Util_Math::@9b93804e5f34338a96c4",
+					"jsonFile" : "target-Util_Math-Debug-72b22366c240f37b92e0.json",
+					"name" : "Util_Math",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Util_String::@121e71b86604e0ebf1f0",
+					"jsonFile" : "target-Util_String-Debug-15e254c04c1dc924244a.json",
+					"name" : "Util_String",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Win-0201/Pictures/ST/stm32_templates_01/build/Debug",
+		"source" : "C:/Users/Win-0201/Pictures/ST/stm32_templates_01"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

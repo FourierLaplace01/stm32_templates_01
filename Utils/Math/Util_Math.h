@@ -1,8 +1,9 @@
-//
-// Created by Win-0201 on 2026/1/16.
-//
+#ifndef UTIL_MATH_H
+#define UTIL_MATH_H
 
-#ifndef STM32_TEMPLATES_01_UTILS_H
-#define STM32_TEMPLATES_01_UTILS_H
+#include <stdint.h>
 
-#endif //STM32_TEMPLATES_01_UTILS_H
+// 返回一个固定数字，模拟延时用
+uint32_t Util_Math_GetNum(uint32_t num);
+
+#endif
