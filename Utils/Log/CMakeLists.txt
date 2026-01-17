@@ -13,5 +13,4 @@ target_include_directories(Util_Log PUBLIC
 target_link_libraries(Util_Log PUBLIC project_interface)
 
 
-#
-target_link_libraries(${PROJECT_TARGET} PRIVATE Util_Log)
+

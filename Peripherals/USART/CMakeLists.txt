@@ -17,4 +17,7 @@ target_link_libraries(Periph_USART PUBLIC project_interface)
 
 
 #
+#[[
 target_link_libraries(${PROJECT_TARGET} PRIVATE Periph_USART)
+]]
+

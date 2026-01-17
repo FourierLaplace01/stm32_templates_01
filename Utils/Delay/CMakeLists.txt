@@ -16,4 +16,3 @@ target_link_libraries(Util_Delay PUBLIC project_interface)
 
 
 #
-target_link_libraries(${PROJECT_TARGET} PRIVATE Util_Delay)

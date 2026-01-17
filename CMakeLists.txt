@@ -156,65 +156,16 @@ target_link_options(
         -T${CMAKE_CURRENT_SOURCE_DIR}/Core/stm32f103rbtx_FLASH.ld
 )
 
-# ==================================================================
-# 11. Compile options
-# ==================================================================
-#[[target_compile_options(${PROJECT_TARGET} PRIVATE
 
-        #
-        -mcpu=cortex-m3
-        -mthumb
-        -mfloat-abi=soft
-        #
-        -Wall
-        -Wextra
-        #
-        -fdata-sections
-        -ffunction-sections
-        -std=gnu11
-        -ffreestanding
-        -fno-builtin
-
-        # C
-        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:C>>:-O0 -g3>
-        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:C>>:-Os -g0>
-
-        # CPP
-        $<$<AND:$<CONFIG:Debug>,$<COMPILE_LANGUAGE:CXX>>:-O0 -g3>
-        $<$<AND:$<CONFIG:Release>,$<COMPILE_LANGUAGE:CXX>>:-Os -g0>
-        $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti -fno-exceptions -fno-threadsafe-statics>
-
-        # ASM
-        $<$<COMPILE_LANGUAGE:ASM>:-x assembler-with-cpp>
-)]]
-
-# ==================================================================
-# 12. Compile definitions
-# ==================================================================
-#[[
-target_compile_definitions(${PROJECT_TARGET} PRIVATE
-        STM32F10X_MD
-        USE_STDPERIPH_DRIVER
-        $<$<CONFIG:Debug>:DEBUG>
-)
-
-]]
-
-
-# ==================================================================
-# 13. Post Build: 打印内存
-# ==================================================================
 add_custom_command(TARGET ${PROJECT_TARGET} POST_BUILD
         COMMAND ${CMAKE_SIZE} -A -x $<TARGET_FILE:${PROJECT_TARGET}>
 )
 
-# ================================================
 
 
 
 
 # =================================================
-
 add_library(project_interface INTERFACE)
 
 #
@@ -268,9 +219,13 @@ add_subdirectory(Peripherals/USART)
 #
 
 
-# ==========================================================
+target_link_libraries(${PROJECT_TARGET} PRIVATE
 
-
-
-
+        Periph_USART
+        #
+        Util_Delay
+        Util_Log
+        Util_Math
+        Util_String
+)
 

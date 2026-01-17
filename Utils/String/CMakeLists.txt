@@ -13,6 +13,3 @@ target_include_directories(Util_String PUBLIC
 
 #
 target_link_libraries(Util_String PUBLIC project_interface)
-
-#
-target_link_libraries(${PROJECT_TARGET} PRIVATE Util_String)

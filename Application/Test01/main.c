@@ -35,9 +35,9 @@ int main(void)
         Num++;
 
         GPIO_SetBits(GPIOA, GPIO_Pin_5);
-        Util_Delay_Ms(1000);
+        Util_Delay_Ms(100);
         GPIO_ResetBits(GPIOA, GPIO_Pin_5);
-        Util_Delay_Ms(1000);
+        Util_Delay_Ms(100);
 
         Periph_USART_Printf("Num = %lu\r\n", Num);
         Periph_USART_Printf("counter: 0x%08X\r\n", Num);
