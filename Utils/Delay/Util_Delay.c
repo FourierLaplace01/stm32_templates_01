@@ -1,40 +1,29 @@
 #include "Util_Delay.h"
 #include "stm32f10x.h"
 
-// SysTick 毫秒计数
-static volatile uint32_t uwTick = 0;
+/* ================= 全局毫秒计数器 ================= */
+volatile uint32_t Tick_Counter = 0;
 
-// SysTick 中断处理
+/* ================= SysTick 中断函数 ================= */
 void SysTick_Handler(void)
 {
-    uwTick++;
+    Tick_Counter++;
 }
 
-// 初始化 SysTick，每 1ms 触发一次中断
+/* ================= 延时初始化 ================= */
 void Util_Delay_Init(void)
 {
-    // 确保 SystemCoreClock 已经更新
-    // 每 1ms 触发一次
+    /* SysTick 配置为 1ms 中断 */
     SysTick_Config(SystemCoreClock / 1000);
 }
 
-// 毫秒延时
-void Util_Delay_Ms(uint32_t ms)
+/* ================= 毫秒延时函数 ================= */
+void Util_Delay_Ms(const uint32_t Ms)
 {
-    uint32_t start = uwTick;
-    while ((uwTick - start) < ms)
-    {
-        __NOP();
-    }
-}
+    const uint32_t Start = Tick_Counter;
 
-// 简单微秒延时（不依赖 SysTick，中等精度）
-void Util_Delay_Us(uint32_t us)
-{
-    // 假设 CPU 72MHz
-    uint32_t count = us * (SystemCoreClock / 1000000UL / 5); // 5 是循环调校值
-    while (count--)
+    while ((Tick_Counter - Start) < Ms)
     {
-        __NOP();
+
     }
 }

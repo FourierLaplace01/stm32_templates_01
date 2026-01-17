@@ -1,49 +1,48 @@
-//
-// Created by Win-0201 on 2026/1/15.
-//
-
-#include "main.h"
+#include <stdio.h>
 #include "stm32f10x.h"
-#include "stm32f10x_gpio.h"
+#include "Util_Delay.h"
+#include "Periph_USART.h"
 
-/* 简单的延时函数（阻塞式） */
-void Dlay_ms(uint32_t ms)
-{
-    while (ms--)
-    {
-        for (uint32_t i = 0; i < 7200; i++)
-        {
-            __NOP();
-        }
-    }
-}
+/* =================================================== */
 
 int main(void)
 {
+
+    /* 系统初始化 */
+    SystemInit();
+    SystemCoreClockUpdate();
+
+    /* 延时模块初始化 */
+    Util_Delay_Init();
+
+    /* LED PA5 初始化 */
     GPIO_InitTypeDef GPIO_InitStructure;
-
-    /* 1. 使能 GPIOA 时钟（APB2） */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-
-    /* 2. 配置 PA5 为推挽输出 */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_5;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-    /* 3. 初始状态：PA5 = 低 */
     GPIO_ResetBits(GPIOA, GPIO_Pin_5);
 
-    /* 4. 主循环：翻转 PA5 */
+    /* 串口初始化（Nucleo-F103RB -> USART2 / ST-LINK VCP） */
+    Periph_USART_Init();
+    printf("System start OK\r\n");
+    uint32_t Num = 0;
+    Periph_USART_Printf("--------------------------------\r\n");
+
     while (1)
     {
-        GPIO_WriteBit(
-            GPIOA,
-            GPIO_Pin_5,
-            (BitAction)!GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_5)
-        );
+        Num++;
 
-        Dlay_ms(1000);
+        GPIO_SetBits(GPIOA, GPIO_Pin_5);
+        Util_Delay_Ms(100);
+
+        GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+        Util_Delay_Ms(100);
+
+        Periph_USART_Printf("Num = %lu\r\n", Num);
+        Periph_USART_Printf("counter: 0x%08X\r\n", Num);
+        Periph_USART_Printf("--------------------------------\r\n");
     }
 
 }

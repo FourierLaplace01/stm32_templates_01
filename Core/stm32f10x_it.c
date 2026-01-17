@@ -24,6 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
+
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -134,6 +135,7 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+
 }
 
 /******************************************************************************/
@@ -148,13 +150,10 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
+void PPP_IRQHandler(void)
 {
-}*/
+}
 
-/**
-  * @}
-  */ 
 
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

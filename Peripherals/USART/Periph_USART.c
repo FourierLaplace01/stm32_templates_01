@@ -7,6 +7,19 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+/* ================= 覆写 weak _write ================= */
+int _write(int file, char *ptr, int len)
+{
+    (void)file;
+
+    for (int i = 0; i < len; i++)
+    {
+        Periph_USART_SendChar(ptr[i]);
+    }
+    return len;
+}
+
+
 /* 串口初始化（USART2，PA2=TX, PA3=RX） */
 void Periph_USART_Init(void)
 {
@@ -57,17 +70,6 @@ void Periph_USART_SendStr(const char *str)
 }
 
 
-/* ================= 覆写 weak _write ================= */
-int _write(int file, char *ptr, int len)
-{
-    (void)file;
-
-    for (int i = 0; i < len; i++)
-    {
-        Periph_USART_SendChar(ptr[i]);
-    }
-    return len;
-}
 
 
 int Periph_USART_Printf(const char *format, ...)

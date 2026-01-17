@@ -23,8 +23,9 @@
 #define __STM32F10x_IT_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C" {
+
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
@@ -33,6 +34,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+extern volatile uint32_t Tick;
 
 void NMI_Handler(void);
 void HardFault_Handler(void);
@@ -49,4 +51,3 @@ void SysTick_Handler(void);
 #endif
 
 #endif /* __STM32F10x_IT_H */
-
